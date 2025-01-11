@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 079b8837eb490ce21682d13e028ffbbb96e8940f0cb0c679c0deda0e2a79ac31
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
     - poetry
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - pytorch >=1.4
     - pytorch-lightning >=1.2
     - scipy
@@ -30,6 +30,7 @@ test:
     - torchts
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
